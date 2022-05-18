@@ -1,0 +1,65 @@
+create database Dropdown
+use dropdown
+create table Country(country_id int primary key identity,country_name varchar(100))
+create table State(state_id int primary key identity,state_name varchar(100),
+country_id int foreign key references Country(country_id))
+create table City(city_id int primary key identity,city_name varchar(100),
+state_id int foreign key references State(state_id))
+insert into Country values ('India'),
+('America'),
+('Austrlia'),
+('srilanka'),
+('Bangladesh')
+
+insert into State values ('Uttar Pradesh',1),
+('haryana',1),
+('Uttrakhand',1),
+('California',2),
+('Florida',2),
+('victoria',3),
+('New South Wales',3),
+('Dhaka',5),
+('Khulna',5),
+('Anuradhapura',4)
+
+
+insert into city values('Modinagar',1),
+('Muradnagar',1),
+('Guragaon',2),
+('Maneshar',2),
+('Dehradun',3),
+('Haridwar',3),
+('San diego',4),
+('Miami',5),
+('Melbourne',6),
+('Sydney',7),
+('Gazipur',8),
+('Barisal',9),
+('Habarana',10)
+
+create proc sp_country
+as
+begin
+select * from Country
+end
+
+create proc sp_state
+@country_id int
+as 
+begin
+select * from State where country_id=@country_id
+end
+
+create proc sp_city
+@state_id int
+as 
+begin
+select * from State where state_id=@state_id
+end
+
+sp_country
+sp_state 1
+sp_city  1
+
+
+
